@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, request
+import web_pdb
 
 
 app = Flask(__name__)
@@ -11,13 +12,26 @@ def site():
 
 @app.route('/teste', methods=['GET'])
 def teste():
-    return "Testando", 200
+    return "Webs Service Funcionando", 200
 
 
-@app.route('/cadastrar_aluno', methods=['POST'])
-def cadastrar_aluno():
-    response = "OK!"
+alunos = []
+@app.route('/cadastro_aluno', methods=['POST'])
+def cadastro_aluno():
+
+    entrada_dados = request.json
+
+    web_pdb.set_trace()
+
+    alunos.append(entrada_dados)
+
+    response = "Aluno cadastrado com sucesso!"
     return response, 201
+
+
+@app.route('/lista_alunos', methods=['GET'])
+def lista_alunos():
+    return alunos, 200
 
 
 if __name__ == '__main__':
